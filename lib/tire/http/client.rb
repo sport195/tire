@@ -16,6 +16,7 @@ module Tire
         end
 
         def self.post(url, data)
+          ::RestClient.post(url.gsub(Configuration.url, Configuration.secondary_url), data) if (!Configuration.secondary_url.blank?)
           perform ::RestClient.post(url, data)
         rescue *ConnectionExceptions
           raise
@@ -24,6 +25,7 @@ module Tire
         end
 
         def self.put(url, data)
+          ::RestClient.post(url.gsub(Configuration.url, Configuration.secondary_url), data) if (!Configuration.secondary_url.blank?)
           perform ::RestClient.put(url, data)
         rescue *ConnectionExceptions
           raise
@@ -32,6 +34,7 @@ module Tire
         end
 
         def self.delete(url)
+          ::RestClient.post(url.gsub(Configuration.url, Configuration.secondary_url), data) if (!Configuration.secondary_url.blank?)
           perform ::RestClient.delete(url)
         rescue *ConnectionExceptions
           raise

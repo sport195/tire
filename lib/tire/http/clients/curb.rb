@@ -28,6 +28,13 @@ module Tire
         end
 
         def self.post(url, data)
+
+          if (!Configuration.secondary_url.blank?)
+            @client.url = url.gsub(Configuration.url, Configuration.secondary_url)
+            @client.post_body = data
+            @client.http_post
+          end
+
           @client.url = url
           @client.post_body = data
           @client.http_post
@@ -35,12 +42,23 @@ module Tire
         end
 
         def self.put(url, data)
+
+          if (!Configuration.secondary_url.blank?)
+            @client.url = url.gsub(Configuration.url, Configuration.secondary_url)
+            @client.http_put data
+          end
+
           @client.url = url
           @client.http_put data
           Response.new @client.body_str, @client.response_code
         end
 
         def self.delete(url)
+          if (!Configuration.secondary_url.blank?)
+            @client.url = url.gsub(Configuration.url, Configuration.secondary_url)
+            @client.http_delete
+          end
+
           @client.url = url
           @client.http_delete
           Response.new @client.body_str, @client.response_code

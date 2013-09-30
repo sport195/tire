@@ -6,6 +6,10 @@ module Tire
       @url = (value ? value.to_s.gsub(%r|/*$|, '') : nil) || @url || ENV['ELASTICSEARCH_URL'] || "http://localhost:9200"
     end
 
+    def self.secondary_url(value=nil)
+      @secondary_url = (value ? value.to_s.gsub(%r|/*$|, '') : nil) || @secondary_url
+    end
+
     def self.client(klass=nil)
       @client = klass || @client || HTTP::Client::RestClient
     end
