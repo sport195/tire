@@ -34,7 +34,7 @@ module Tire
         end
 
         def self.delete(url)
-          ::RestClient.post(url.gsub(Configuration.url, Configuration.secondary_url), data) if (!Configuration.secondary_url.blank?)
+          ::RestClient.delete(url.gsub(Configuration.url, Configuration.secondary_url)) if (!Configuration.secondary_url.blank?)
           perform ::RestClient.delete(url)
         rescue *ConnectionExceptions
           raise
